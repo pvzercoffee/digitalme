@@ -14,7 +14,6 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             String text = scanner.next();
 
-
                     adbTool
                             .inputTap(492,2216)
                             .inputText(text)

@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: backend
+pvzer:
+  digitalme:
+    apikey: 330442d5-8430-400b-bb62-5de90a6ef055
