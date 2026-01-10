@@ -1,10 +1,13 @@
 package com.pvzer.digitalme;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class AdbTool implements AutoCloseable {
     private final Process process;
     private final BufferedWriter writer;
+    private final String usePath = "/sdcard/adbfile/";
 
     public AdbTool() throws IOException {
         // 启动一个持久的 shell 进程
@@ -36,6 +39,12 @@ public class AdbTool implements AutoCloseable {
 
     public AdbTool inputTap(int x,int y) throws IOException {
         return exec("input tap "+x+" "+y);
+    }
+
+    public BufferedImage screenCapToMemory() throws IOException {
+        // 使用 exec-out 直接获取标准输出流
+        Process p = Runtime.getRuntime().exec("adb exec-out screencap -p");
+        return ImageIO.read(p.getInputStream());
     }
 
     @Override
