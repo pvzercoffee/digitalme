@@ -7,10 +7,21 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class ModuleRequest {
     private static final String API_URL = "https://ark.cn-beijing.volces.com/api/v3/responses";
     private static final String API_KEY = "330442d5-8430-400b-bb62-5de90a6ef055";
+    private static String rule;
+
+    static {
+        try {
+            rule = Files.readString(Path.of("prompts/prompt.txt"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private final OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(60, java.util.concurrent.TimeUnit.SECONDS) // 连接超时
@@ -21,17 +32,26 @@ public class ModuleRequest {
 
     public String askModel(String imageUrl, String userText) throws IOException {
 
-
-
         // --- 1. 请求构造部分 ---
         ObjectNode root = mapper.createObjectNode();
         root.put("model", "doubao-seed-1-8-251228");
 
         ArrayNode inputArray = root.putArray("input");
+
+        // === 新增：添加系统提示词 (System Prompt) ===
+        ObjectNode systemItem = inputArray.addObject();
+        systemItem.put("role", "system");
+        ArrayNode systemContentArray = systemItem.putArray("content");
+        ObjectNode systemTextNode = systemContentArray.addObject();
+        systemTextNode.put("type", "input_text");
+        // 这里放入我刚才为你优化的那段系统提示词内容
+        systemTextNode.put("text", rule);
+
+        // --- 原有的 User 消息部分 ---
         ObjectNode inputItem = inputArray.addObject();
         inputItem.put("role", "user");
 
-        ArrayNode reqContentArray = inputItem.putArray("content"); // 变量名改为 reqContentArray
+        ArrayNode reqContentArray = inputItem.putArray("content");
 
         ObjectNode imageNode = reqContentArray.addObject();
         imageNode.put("type", "input_image");

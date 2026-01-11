@@ -7,43 +7,76 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
 
 public class Main {
+
+    private static String prompt;
+//    private static String rule;
+
+
+    private static int sendX = Value.wxSendX;
+    private static int sendY = Value.wxSendY;
+
     public static void main(String[] args) throws Exception {
 
-        AdbTool adbTool = new AdbTool().inputTap(540,2216);
+        AdbTool adbTool = new AdbTool();
+        System.out.print("选择人格：");
+        Scanner sc = new Scanner(System.in);
 
-        BufferedImage image = FileTool.cropImage(adbTool.screenCapToMemory(),200,0,500,500);
+//        rule = Files.readString(Path.of("prompts/prompt.txt"));
+        prompt = Files.readString(Path.of("prompts/"+sc.next()+".txt"));
+
+        BufferedImage image = new BufferedImage(100,100,BufferedImage.TYPE_3BYTE_BGR);
 
         int count = 1;
+        String hint = "首次对话";
+
         while(true) {
 
-            BufferedImage image2 = FileTool.cropImage(adbTool.screenCapToMemory(), 200, 0, 500, 500);
+            BufferedImage image2 = FileTool.cropImage(adbTool.screenCapToMemory(), 200, 400, 200, 200);;
 
             if (FileTool.hasChanged(image, image2)) {
                 System.out.println("第" + count++ + "轮新的消息");
 
+                image = FileTool.cropImage(adbTool.screenCapToMemory(), 200, 400, 200, 200);
+
                 Thread.sleep(3000);
 
-                image = FileTool.cropImage(adbTool.screenCapToMemory(), 200, 0, 500, 500);
-
                 String imgsrc = FileTool.aggressiveCompressToBase64(adbTool.screenCapToMemory());
-
                 ModuleRequest ai = new ModuleRequest();
-                String result = ai.askModel(imgsrc, "现在你是一个微信好友，我会发送一个聊天记录截图，你将是绿色消息的一方，也就是绿色背景文字的发送者。请你什么其他内容都不要说，诸如“好的、我知道了”，“作为一个AI”之类的绝对杜绝，需要一个绝对简短的话，随机1-4条数组形式，不能包含其他任何字符，回答样例：[]，如果你发现最后的消息是你发的，也就是最后的消息是绿色泡泡的，你就什么都别响应，响应一个“[]”就行，除非看起来确实是没说完事情，完全按照要求，完全与上下文接轨，但也不要太骚，重在看上下文，不要只看最后一两条消息，要结合全文去推敲，通过备注推断关系熟悉程度，才能符合要求。你不要深度思考，最快响应，你就是绿色泡泡的，你就是在和对方聊天。");
+                String result = ai.askModel(imgsrc,  prompt+"上次对话内容："+hint)+"\n";
 
-                System.out.println("AI回复："+result);
+                System.out.println(result);
+
                 ObjectMapper mapper = new ObjectMapper();
 
                 String[] results = mapper.readValue(result, String[].class);
 
-                for (String text : results) {
+                hint = results[0];
+
+                for (int i = 1;i < results.length;i++) {
                     adbTool
-                            .inputText(text)
-                            .inputTap(972, 2137)
-                            .sleep(1000);
+                            .inputText(results[i])
+                            .sleep(results[i].length()* 250L)
+                            .inputTap(sendX, sendY);
+
                 }
+
+                Files.write(
+                        Paths.get("history.log"),
+                        result.getBytes(StandardCharsets.UTF_8), // 指定UTF-8编码，避免乱码
+                        StandardOpenOption.APPEND,
+                        StandardOpenOption.CREATE
+                );
+
+                Thread.sleep(500);
+                image = FileTool.cropImage(adbTool.screenCapToMemory(), 200, 400, 200, 200);
 
             }
 
