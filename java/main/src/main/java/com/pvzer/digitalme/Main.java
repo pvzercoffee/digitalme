@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Main {
 
     private static String prompt;
-//    private static String rule;
+    private static String rule;
 
 
     private static int sendX = Value.wxSendX;
@@ -29,13 +29,12 @@ public class Main {
         System.out.print("选择人格：");
         Scanner sc = new Scanner(System.in);
 
-//        rule = Files.readString(Path.of("prompts/prompt.txt"));
+        rule = Files.readString(Path.of("prompts/prompt.txt"));
         prompt = Files.readString(Path.of("prompts/"+sc.next()+".txt"));
 
         BufferedImage image = new BufferedImage(100,100,BufferedImage.TYPE_3BYTE_BGR);
 
         int count = 1;
-        String hint = "首次对话";
 
         while(true) {
 
@@ -50,7 +49,7 @@ public class Main {
 
                 String imgsrc = FileTool.aggressiveCompressToBase64(adbTool.screenCapToMemory());
                 ModuleRequest ai = new ModuleRequest();
-                String result = ai.askModel(imgsrc,  prompt+"上次对话内容："+hint)+"\n";
+                String result = ai.askModel(imgsrc,  rule+prompt)+"\n";
 
                 System.out.println(result);
 
@@ -58,9 +57,7 @@ public class Main {
 
                 String[] results = mapper.readValue(result, String[].class);
 
-                hint = results[0];
-
-                for (int i = 1;i < results.length;i++) {
+                for (int i = 0;i < results.length;i++) {
                     adbTool
                             .inputText(results[i])
                             .sleep(results[i].length()* 250L)

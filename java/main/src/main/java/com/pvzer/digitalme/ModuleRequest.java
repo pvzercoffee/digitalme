@@ -45,7 +45,7 @@ public class ModuleRequest {
         ObjectNode systemTextNode = systemContentArray.addObject();
         systemTextNode.put("type", "input_text");
         // 这里放入我刚才为你优化的那段系统提示词内容
-        systemTextNode.put("text", rule);
+        systemTextNode.put("text", "1");
 
         // --- 原有的 User 消息部分 ---
         ObjectNode inputItem = inputArray.addObject();
