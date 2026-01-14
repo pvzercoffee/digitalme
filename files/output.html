@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>数据结构复习题</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.8;
+      color: #24292f;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+      font-size: 16px;
+    }
+    
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      main {
+        padding: 15px;
+      }
+      body {
+        font-size: 15px;
+      }
+    }
+    
+    h1 {
+      font-size: 2em;
+      font-weight: 600;
+      border-bottom: 1px solid #d8dee4;
+      padding-bottom: 0.3em;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      line-height: 1.25;
+    }
+    
+    h2 {
+      font-size: 1.5em;
+      font-weight: 600;
+      border-bottom: 1px solid #d8dee4;
+      padding-bottom: 0.3em;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      line-height: 1.25;
+    }
+    
+    h3 {
+      font-size: 1.25em;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+    
+    p {
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+    
+    ul, ol {
+      margin-top: 0;
+      margin-bottom: 16px;
+      padding-left: 2em;
+    }
+    
+    li {
+      margin-bottom: 8px;
+    }
+    
+    code {
+      padding: 0.2em 0.4em;
+      margin: 0;
+      font-size: 85%;
+      background-color: rgba(175,184,193,0.2);
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    
+    pre {
+      padding: 16px;
+      overflow: auto;
+      font-size: 85%;
+      line-height: 1.45;
+      background-color: #f6f8fa;
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+    
+    pre code {
+      display: block;
+      padding: 0;
+      margin: 0;
+      overflow: visible;
+      line-height: inherit;
+      word-wrap: normal;
+      background-color: transparent;
+      border: 0;
+      font-size: 100%;
+      white-space: pre;
+    }
+    
+    @media (max-width: 768px) {
+      pre {
+        padding: 12px;
+        font-size: 80%;
+      }
+      pre code {
+        font-size: 80%;
+      }
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 16px auto;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+    
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 16px;
+      overflow: auto;
+      display: block;
+    }
+    
+    @media (max-width: 768px) {
+      table {
+        font-size: 14px;
+      }
+    }
+    
+    table th, table td {
+      padding: 8px 13px;
+      border: 1px solid #d0d7de;
+    }
+    
+    table th {
+      font-weight: 600;
+      background-color: #f6f8fa;
+    }
+    
+    table tr:nth-child(2n) {
+      background-color: #f6f8fa;
+    }
+    
+    span[style*="color:red"] {
+      color: #cf222e !important;
+      font-weight: 500;
+    }
+    
+    blockquote {
+      padding: 0 1em;
+      color: #57606a;
+      border-left: 0.25em solid #d0d7de;
+      margin: 0 0 16px 0;
+    }
+    
+    hr {
+      height: 0.25em;
+      padding: 0;
+      margin: 24px 0;
+      background-color: #d8dee4;
+      border: 0;
+    }
+    
+    strong {
+      font-weight: 600;
+    }
+    
+    a {
+      color: #0969da;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .mjx-chtml {
+      font-size: 100% !important;
+    }
+    
+    /* 打印优化 */
+    @media print {
+      body {
+        font-size: 12pt;
+      }
+      main {
+        max-width: 100%;
+      }
+      pre, code {
+        page-break-inside: avoid;
+      }
+      h1, h2, h3 {
+        page-break-after: avoid;
+      }
+    }
+    
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<main>
+<header id="title-block-header">
+<h1 class="title">数据结构复习题</h1>
+</header>
+<h1 id="数据结构与算法分析复习题">数据结构与算法分析复习题</h1>
+<h2 id="一单选题">一、单选题</h2>
+<ol type="1">
+<li><p>在单链表中，增加头结点的目的是（ ）。</p>
+<p>A. 使单链表至少有一个结点<br />
+B. 标志表中首结点的位置<br />
+C. 方便运算的实现<br />
+D. 说明该单链表是线性表的链式存储结构</p>
+<p><strong>答案：C</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+头结点的主要作用是统一对第一个结点和其他结点的操作，避免在首位置插入删除时的特殊处理，使算法更简洁。</span></p></li>
+<li><p>在顺序表中，只要知道（ ）。</p>
+<p>A. 基地址<br />
+B. 结点大小<br />
+C. 向量大小<br />
+D. 基地址和结点大小</p>
+<p><strong>答案：D</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+顺序表采用随机访问，地址计算公式为：loc(ai) = loc(a0) +
+i×L，需要基地址和结点大小两个参数。</span></p></li>
+<li><p>下面关于线性表的叙述，错误的是（ ）。</p>
+<p>A. 线性表采用顺序存储，必须占用一片地址连续的单元 B.
+线性表采用顺序存储，便于进行插入和删除操作 C.
+线性表采用链式存储，不必占用一片地址连续的单元 D.
+线性表采用链式存储，便于进行插入和删除操作</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+顺序存储需要移动大量元素，插入删除效率低；链式存储只需修改指针，便于插入删除。</span></p></li>
+<li><p>在单链表指针为p的结点之后插入指针为s结点，正确的操作是（ ）。</p>
+<p>A. p-&gt;link=s；s-&gt;link=p-&gt;link；<br />
+B. s-&gt;link=p-&gt;link；p-&gt;link=s；<br />
+C. p-&gt;link=s；p-&gt;link=s-&gt;link；<br />
+D. p-&gt;link=s-&gt;link；p-&gt;link=s；</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+先将s的指针域指向p的后继，再将p的指针域指向s，顺序不能颠倒，否则会丢失p的后继信息。</span></p></li>
+<li><p>链表中最常用的操作是在最后一个元素之后插入一个元素和删除最后一个元素，则采用（
+）存储方式最节省运算时间。</p>
+<p>A. 单链表<br />
+B. 双链表<br />
+C. 单循环链表<br />
+D. 带头结点的双向循环链表</p>
+<p><strong>答案：D</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+双向循环链表可通过头结点直接访问尾结点，删除时能直接找到前驱，时间复杂度<span
+class="math inline">\(O(1)\)</span>。</span></p></li>
+<li><p>链表不具备的特点是（ ）。</p>
+<p>A. 随机访问<br />
+B. 不必事先估计存储空间<br />
+C. 插入删除时不需移动元素<br />
+D. 所需空间与线性表成正比</p>
+<p><strong>答案：A</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+链表必须从头结点开始顺序访问，不支持随机访问，时间复杂度<span
+class="math inline">\(O(n)\)</span>；只有顺序表支持<span
+class="math inline">\(O(1)\)</span>随机访问。</span></p></li>
+<li><p>在（ ）的运算中，使用顺序表比链表好。</p>
+<p>A. 插入<br />
+B. 根据序号查找<br />
+C. 删除<br />
+D. 根据元素查找</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+顺序表支持按序号随机访问，时间复杂度<span
+class="math inline">\(O(1)\)</span>；链表需要遍历，时间复杂度<span
+class="math inline">\(O(n)\)</span>。</span></p></li>
+<li><p>能在<span
+class="math inline">\(O(1)\)</span>时间内访问线性表的第i个元素的结构是（
+）。</p>
+<p>A. 顺序表<br />
+B. 单链表<br />
+C. 单向循环链表<br />
+D. 双向链表</p>
+<p><strong>答案：A</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+顺序表采用数组存储，通过下标可直接计算地址，实现<span
+class="math inline">\(O(1)\)</span>随机访问；链表需遍历。</span></p></li>
+<li><p>在一棵二叉树上第3层上的结点数最多为（ ）。</p>
+<p>A. 2<br />
+B. 4<br />
+C. 6<br />
+D. 8</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+二叉树第k层最多有2<sup>k-1</span>个结点，第3层最多2</sup>3-1}=2²=4个结点。}</p></li>
+<li><p>在完全二叉树中，如果一个结点是叶子结点，则它没有（ ）。</p>
+<p>A. 左孩子结点<br />
+B. 右孩子结点<br />
+C. 左、右孩子结点<br />
+D. 左、右孩子结点和兄弟结点</p>
+<p><strong>答案：C</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+叶子结点定义为没有孩子的结点，即左右孩子都不存在；但可能有兄弟结点。</span></p></li>
+<li><p>若已知一个栈的入栈序列是1，2，3，…，n，其输出序列为p1，p2，p3，…，pn，若pn是n，则Pi为（
+）。</p>
+<p>A. i<br />
+B. n－i<br />
+C. n－i＋l<br />
+D. 不确定</p>
+<p><strong>答案：A</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+若最后出栈的是n，说明n最后入栈，则1,2,…,n依次入栈后依次出栈，输出序列为1,2,…,n，故Pi=i。</span></p></li>
+<li><p>在一个链队列中，若f、r分别为队首、队尾指针，则插入p所指结点的操作为（
+）。</p>
+<p>A. f-&gt;link=p；f=p<br />
+B. r-&gt;link=p；r=p<br />
+C. p-&gt;link=r；r=p<br />
+D. p-&gt;link=f；f=p</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+队列在队尾插入，将当前队尾的next指向新结点p，再将队尾指针r移向p。</span></p></li>
+<li><p>假设在一棵二叉树中，双分支结点数为15，单分支结点数为30个，则叶子结点数为（
+）个。</p>
+<p>A. 15<br />
+B. 16<br />
+C. 17<br />
+D. 47</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+二叉树性质：n0=n2+1，其中n0为叶子数，n2为双分支数。n0=15+1=16。</span></p></li>
+<li><p>树最适合用来表示（ ）。</p>
+<p>A. 有序数据元素<br />
+B. 元素之间具有分支层次关系的数据<br />
+C. 无序数据元素<br />
+D. 元素之间无联系的数据</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+树形结构的特点是一对多的层次关系，适合表示具有分支和层次的数据，如文件系统、组织结构等。</span></p></li>
+<li><p>一个栈的入栈序列是a，b，c，d，e，则栈的不可能的输出序列是（
+）。</p>
+<p>A. edcba<br />
+B. decba<br />
+C. dceab<br />
+D. abcde</p>
+<p><strong>答案：C</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+若d先出栈，则c、e应在栈中，c在e下方，c不可能比e先出。dceab违反了栈的后进先出原则。</span></p></li>
+<li><p>计算机算法必须具备输入、输出、（ ）等5个特性。</p>
+<p>A. 可行性、可移植性和可扩展性<br />
+B. 可行性、确定性和有穷性<br />
+C. 确定性、有穷性和稳定性<br />
+D. 易读性、安全性和稳定性</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+算法五大特性：输入、输出、有穷性（有限步骤）、确定性（无二义性）、可行性（可执行）。</span></p></li>
+<li><p>一个三元组表用于表示一个（ ）。</p>
+<p>A. 线性表<br />
+B. 广义表<br />
+C. 稀疏矩阵<br />
+D. 双向链表</p>
+<p><strong>答案：C</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+三元组(行,列,值)专用于稀疏矩阵压缩存储，只存储非零元素，大幅节省空间。</span></p></li>
+<li><p>深度为4的满二叉树有（ ）个结点。</p>
+<p>A. 32<br />
+B. 15<br />
+C. 30<br />
+D. 31</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+深度为k的满二叉树结点数为2^k-1，深度4的满二叉树有2⁴-1=15个结点。</span></p></li>
+<li><p>边数很多的稠密图，适宜用（ ）表示。</p>
+<p>A. 邻接矩阵<br />
+B. 邻接表<br />
+C. 逆邻接表<br />
+D. 邻接多重表</p>
+<p><strong>答案：A</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+稠密图边数多，邻接矩阵空间利用率高；稀疏图用邻接表节省空间。</span></p></li>
+<li><p>数据结构是一门研究非数值计算的程序设计问题中计算机的操作对象以及它们之间的（
+）和运算的学科。</p>
+<p>A. 结构<br />
+B. 关系<br />
+C. 存储<br />
+D. 算法</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+数据结构研究数据元素之间的关系（逻辑关系和存储关系）以及对数据的操作运算。</span></p></li>
+<li><p>算法在发生非法操作时可以作出处理的特性称为（ ）。</p>
+<p>A. 正确性<br />
+B. 易读性<br />
+C. 健壮性<br />
+D. 可靠性</p>
+<p><strong>答案：C</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+健壮性指算法能对非法输入或异常情况作出恰当处理，不会崩溃。</span></p></li>
+<li><p>将一棵有100个结点的完全二叉树从上到下，从左到右依次进行编号，根结点的编号为1，则编号为25的结点的左孩子编号为（
+）。</p>
+<p>A. 51<br />
+B. 99<br />
+C. 50<br />
+D. 没有右孩子</p>
+<p><strong>答案：C</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+完全二叉树顺序存储，结点i的左孩子编号为2i，右孩子为2i+1。编号25的左孩子为2×25=50。</span></p></li>
+<li><p>设三个函数f，g，h分别为f(n)=100n³+n²+100，g(n)=25n³+4000n，h(n)=n¹·⁵+100<span
+class="math inline">\(nog_2 n\)</span>，则以下关系式中错误的是（
+）。</p>
+<p>A. f(n)=<span class="math inline">\(O(g(n)\)</span>)<br />
+B. g(n)=<span class="math inline">\(O(f(n)\)</span>)<br />
+C. h(n)=<span class="math inline">\(O(n¹·⁵)\)</span><br />
+D. h(n)=<span class="math inline">\(O(\)</span>nog_2 n<span
+class="math inline">\()\)</span></p>
+<p><strong>答案：D</strong></p>
+<p><span style="color:red"><strong>解析：</strong> h(n)=<span
+class="math inline">\(n^{1.5}\)</span>+100<span
+class="math inline">\(nog n\)</span>的最高阶项是<span
+class="math inline">\(n^{1.5}\)</span>，<span
+class="math inline">\(n^{1.5}\)</span>增长快于<span
+class="math inline">\(nog n\)</span>，所以h(n)=<span
+class="math inline">\(O(\)</span>n^{1.5}<span
+class="math inline">\()\)</span>而不<span
+class="math inline">\(O(\)</span>nog n<span
+class="math inline">\()\)</span>。</span></p></li>
+<li><p>一个队列的入队序列是1，2，3，4，则队列的输出序列是（ ）。</p>
+<p>A. 4,3,2,1<br />
+B. 1,2,3,4<br />
+C. 1,4,3,2<br />
+D. 3,2,4,1</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+队列遵循先进先出(FIFO)原则，入队顺序和出队顺序一致。</span></p></li>
+<li><p>线性表L在（ ）情况下适用于使用链式结构实现。</p>
+<p>A. 需经常修改L中的结点值<br />
+B. 需不断对L进行删除、插入<br />
+C. L中含有大量的结点<br />
+D. L中结点结构复杂</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+链表的优势是插入删除操作方便，不需移动大量元素，适合频繁修改结构的场景。</span></p></li>
+<li><p>一个三元组表用于表示一个（ ）。</p>
+<p>A. 线性表<br />
+B. 广义表<br />
+C. 双向链表<br />
+D. 稀疏矩阵</p>
+<p><strong>答案：D</strong></p>
+<p><span style="color:red"><strong>觠析：</strong>
+三元组(行,列,值)专用于稀疏矩阵压缩存储，只存储非零元素。</span></p></li>
+<li><p>深度为5的满二叉树有（ ）个分支结点。</p>
+<p>A. 32<br />
+B. 15<br />
+C. 30<br />
+D. 31</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+满二叉树总结点数=2⁵-1=31，叶子数=2⁴=16，分支结点数=31-16=15。</span></p></li>
+<li><p>边数很多的稠密图，适宜用（ ）表示。</p>
+<p>A. 邻接矩阵<br />
+B. 邻接表<br />
+C. 逆邻接表<br />
+D. 邻接多重表 <strong>答案：A</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+稀密图边多，邻接矩阵空间利用率高，访问效率也<span
+class="math inline">\(O(1)\)</span>。</span></p></li>
+<li><p>若从二叉树的任一结点出发到根的路径上所经过的结点序列按其关键字有序，则该二叉树是（
+）。</p>
+<p>A. 二叉排序树<br />
+B. 二叉平衡树<br />
+C. 堆<br />
+D. B树</p>
+<p><strong>答案：C</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+堆的特征是任意结点到根路径上的值有序（大根堆递增，小根堆递减）。</span></p></li>
+<li><p>算法在发生非法操作时可以作出处理的特性称为（ ）。</p>
+<p>A. 正确性<br />
+B. 易读性<br />
+C. 健壮性<br />
+D. 可靠性</p>
+<p><strong>答案：C</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+健壮性指算法能处理异常情况和非法输入，不会出现错误。</span></p></li>
+<li><p>将一棵有100个结点的完全二叉树从上到下，从左到右依次进行编号，根结点的编号为1，则编号为49的结点的右孩子编号为（
+）。</p>
+<p>A. 98<br />
+B. 99<br />
+C. 50<br />
+D. 没有右孩子</p>
+<p><strong>答案：B</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+完全二叉树顺序存储，结点i的右孩子编号为2i+1。编号49的右孩子为2×49+1=99。</span></p></li>
+</ol>
+<h2 id="二填空题">二、填空题</h2>
+<ol type="1">
+<li><p>若对一个线性表经常进行查找操作，而很少进行插入和删除操作时，则采用
+________ 存储结构为宜，相反，若经常进行的是插入和删除操作时，则采用
+________ 存储结构为宜。</p>
+<p><strong>答案：</strong> 顺序存储（顺序表）、链式存储（链表）</p>
+<p><span style="color:red"><strong>解析：</strong>
+顺序表支持随机访问，查找<span
+class="math inline">\(O(1)\)</span>；链表插入删除只需修改指针，<span
+class="math inline">\(O(1)\)</span>完成。</span></p></li>
+<li><p>在双向链表中，每个结点有两个指针域，一个指向其 ________
+结点，另一个指向其 ________ 结点。</p>
+<p><strong>答案：</strong> 前驱（前一个）、后继（后一个）</p>
+<p><span style="color:red"><strong>解析：</strong>
+双向链表每个结点有prior和next两个指针，分别指向前驱和后继，支持双向遍历。</span></p></li>
+<li><p>字符串按存储方式可以分为
+________、链接存储和堆分配存储；在C语言中，以字符 ________
+表示串值的终结。</p>
+<p><strong>答案：</strong> 顺序存储（定长顺序存储）、‘\0’（空字符）</p>
+<p><span style="color:red"><strong>解析：</strong>
+字符串三种存储：定长顺序、堆分配、块链；C语言用’\0’作结束标记。</span></p></li>
+<li><p>约定i（1≤i≤n）为逻辑位序，在长度为n的顺序表中，若要删除第i个元素，需向前移动
+________ 个元素；若要在第i个元素前插入一个元素，则需向后移动 ________
+个元素。 <strong>答案：</strong> n-i、n-i+1</p>
+<p><span style="color:red"><strong>解析：</strong>
+删除第i个，需移动i+1至n共n-i个；插入在第i位置，需移动i至n共n-i+1个元素。</span></p></li>
+<li><p>字符串是由有限个字符组成的线性结构，设字符串s =
+“abcde”，则其长度为
+________；若采用0基索引（存储时下标从0开始），字符’c’对应的下标是
+________。 <strong>答案：</strong> 5、2</p>
+<p><span style="color:red"><strong>解析：</strong>
+字符串”abcde”有5个字符，长度为5；使用0基索引，a(0),b(1),c(2),d(3),e(4)，c对应下标2。</span></p></li>
+<li><p>哈夫曼树是指带权路径长度最小的二叉树，现由带权为3，6，2，5的4个叶子结点构成的一棵哈夫曼树，则带权路径长度为
+________；该二叉树一共含有 ________ 个结点。</p>
+<p><strong>答案：</strong> 35、7</p>
+<p><span style="color:red"><strong>解析：</strong>
+构造过程：(2,3)→5,(5,5)→10,(6,10)→16。WPL=2×3+2×2+2×5+1×6=35。结点数=2n-1=2×4-1=7。</span></p></li>
+<li><p>散列表（哈希表）的核心思想是通过 ________
+函数将关键字映射到表中的指定位置；若两个不同关键字通过该函数得到相同的映射位置，则称这种现象为
+________。</p>
+<p><strong>答案：</strong> 散列（哈希/Hash）、冲突（碰撞）</p>
+<p><span style="color:red"><strong>解析：</strong>
+散列表通过哈希函数将关键字直接映射到地址；不同关键字映射到同一地址称为冲突。</span></p></li>
+<li><p>对于给定的n个元素，可以构造出的逻辑结构有
+________、________、________ 和图结构。</p>
+<p><strong>答案：</strong> 集合、线性结构、树形结构</p>
+<p><span style="color:red"><strong>解析：</strong>
+数据的四种基本逻辑结构：集合（无关系）、线性结构（一对一）、树形结构（一对多）、图结构（多对多）。</span></p></li>
+<li><p>图结构中的数据元素之间具有 ________ 的关系；图的存储表示有
+________、________、十字链表法和邻接多重表法；若图G的顶点集合为V(G) =
+{0，1，2，3，4}，边集E(G) =
+{&lt;0,1&gt;，&lt;1,2&gt;，&lt;2,0&gt;，&lt;2,4&gt;，&lt;3,0&gt;，&lt;3,2&gt;，&lt;3,4&gt;，&lt;4,0&gt;}，则顶点2的入度为
+________，顶点0的出度为 ________。</p>
+<p><strong>答案：</strong> 多对多、邻接矩阵、邻接表、2、1</p>
+<p><span style="color:red"><strong>解析：</strong>
+图为多对多关系；顶点2的入度：有&lt;1,2&gt;和&lt;3,2&gt;两条边指向它，入度为2；顶点0的出度：有&lt;0,1&gt;一条边从它出发，出度为1。</span></p></li>
+<li><p>二维数组A[4][3]中数组元素以行优先顺序存储，已知数组A的起始存储位置（基地址loc(A[0][0])为100，一个数组元素占4个单位存储空间，则数组元素A[3][2]的存储地址为
+________；三维数组A[5][4][3]中数组元素以行优先顺序存储，已知数组A的起始存储位置（基地址loc(A[0][0][0])为100，一个数组元素占4个单位存储空间，则数组元素A[2][2][2]的存储地址为
+________。</p></li>
+</ol>
+<p><strong>答案：</strong> 144、204</p>
+<p><span style="color:red"><strong>解析：</strong> A[3][2]:
+100+(3×3+2)×4=144。A[2][2][2]:
+100+(2×4×3+2×3+2)×4=100+26×4=204。</span></p>
+<ol start="11" type="1">
+<li>哈夫曼树是具有 ________
+的最优二叉树；若一颗哈夫曼树含有n个叶节点，则其结点总数为
+________。</li>
+</ol>
+<p><strong>答案：</strong> 最小带权路径长度、2n-1</p>
+<p><span style="color:red"><strong>解析：</strong>
+哈夫曼树目标是使WPL最小；n个叶子需n-1次合并，总结点数=n+(n-1)=2n-1。</span></p>
+<ol start="12" type="1">
+<li>单链表中设置头结点的作用是
+________，当删除某一指定结点时，必须找到该结点的 ________ 结点。</li>
+</ol>
+<p><strong>答案：</strong> 统一操作（简化操作/方便运算）、前驱</p>
+<p><span style="color:red"><strong>解析：</strong>
+头结点统一了第一个结点的操作；单链表删除需修改前驱的next指针，必须知道前驱。</span></p>
+<ol start="13" type="1">
+<li>衡量一个算法的效率可分为 ________ 效率和 ________ 效率。</li>
+</ol>
+<p><strong>答案：</strong> 时间、空间</p>
+<p><span style="color:red"><strong>觠析：</strong>
+算法效率包括时间复杂度（执行时间）和空间复杂度（内存占用）两个方面。</span></p>
+<h2 id="三判断题">三、判断题</h2>
+<ol type="1">
+<li><p>线性表的链式存储结构优于顺序存储结构。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+两种结构各有优劣，顺序表支持随机访问，链表便于插入删除，不存在绝对优劣。</span></p></li>
+<li><p>链表的每个结点都恰好包含一个指针域。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+单链表有一个指针，双向链表有两个指针，循环链表等也有不同结构。</span></p></li>
+<li><p>顺序表的每个结点只能是一个简单类型，而链表的每个结点可以是一个复杂类型。（
+）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+顺序表和链表的结点都可以是简单或复杂类型，与存储结构无关。</span></p></li>
+<li><p>在图的遍历中，广度优先搜索可以找到从起点到终点的最短路径。（
+）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+在无权图中，BFS按层次遍历，第一次访问到的路径即为最短路径（边数最少）。</span></p></li>
+<li><p>带权图最小生成树是唯一的。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+当存在相同权值的边时，可能生成多个不同的最小生成树，但权值和相同。</span></p></li>
+<li><p>数据的逻辑结构和数据的存储结构是相同的。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+逻辑结构是数据元素间的关系，存储结构是在计算机中的存储方式，两者不同。</span></p></li>
+<li><p>串是n个字母的有限序列（n≥0）。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+字符串是有限个字符组成的序列，n≥0表示允许空串存在。</span></p></li>
+<li><p>从逻辑关系上讲，数据结构主要分为线性结构和非线性结构两类。（
+）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+数据结构按逻辑关系分为线性结构（一对一）和非线性结构（一对多、多对多）。</span></p></li>
+<li><p>图可以没有边，但不能没有顶点。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+图必须有顶点集，但边集可以为空（无连接的孤立顶点）。</span></p></li>
+<li><p>插入和删除操作是数据结构中最基本的两种操作，所以这两种操作在数组中也经常使用。（
+）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+数组不适合频繁插入删除，需要移动大量元素，时间复杂度高，不经常用。</span></p></li>
+<li><p>在图的遍历中，深度优先搜索使用栈来存储待访问的节点。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+DFS使用栈（递归或显式栈）实现，先深入后回溯；BFS使用队列。</span></p></li>
+<li><p>任何一个递归过程都可以转换成非递归过程。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+所有递归都可用栈模拟，转化为非递归形式，但可能复杂度增加。</span></p></li>
+<li><p>串中任意个字符组成的子序列称为该串的子串。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+子串必须是连续的字符序列，而子序列可以不连续，两者不同。</span></p></li>
+<li><p>数据结构的抽象操作的定义与具体实现有关。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+抽象操作的定义独立于实现，只描述功能而不涉及具体实现细节。</span></p></li>
+<li><p>若输入序列为1,2,3,4,5,6，则通过一个栈可以输出序列1,3,5,4,2,6。（
+）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+模拟：1进出，2进，3进出，4进，5进出，此时4在栈顶，不能先出2再出6，不可能。</span></p></li>
+<li><p>数据的物理结构是指数据在计算机内的实际存储形式。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+物理结构即存储结构，指数据在计算机内存中的具体存储方式。</span></p></li>
+<li><p>在二叉搜索树中，左子树的所有节点的值都小于根节点的值。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+二叉搜索树(BST)定义：左子树所有节点&lt;根节点&lt;右子树所有节点。</span></p></li>
+<li><p>哈希表的平均查找时间复杂度为<span
+class="math inline">\(O(1)\)</span>。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+理想情况下，哈希表通过计算直接定位，平均时间复杂度为<span
+class="math inline">\(O(1)\)</span>。</span></p></li>
+<li><p>快速排序算法的时间复杂度总是<span
+class="math inline">\(O(n²)\)</span>。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong> 快速排序平均<span
+class="math inline">\(O(\)</span>nog n<span
+class="math inline">\()\)</span>，最坏情况（完全有序）才是<span
+class="math inline">\(O(n²)\)</span>。</span></p></li>
+<li><p>在图的深度优先搜索中，每个节点最多被访问一次。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+DFS使用visited标记，确保每个节点只访问一次，避免死循环。</span></p></li>
+<li><p>广度优先搜索算法使用队列来存储待访问的节点。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+BFS使用队列实现，按层次逐层访问，先进先出。</span></p></li>
+<li><p>二叉树的前序遍历顺序是先访问根节点，然后左子树，最后右子树。（
+）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+前序遍历：根→左→右；中序：左→根→右；后序：左→右→根。</span></p></li>
+<li><p>在堆排序中，父节点的值总是大于其子节点的值。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+大根堆父节点≥子节点，小根堆父节点≤子节点，不总是大于。</span></p></li>
+<li><p>动态规划算法通常用于解决具有重叠子问题和最优子结构的问题。（
+）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+动态规划适用于有重叠子问题和最优子结构的问题，通过保存中间结果避免重复计算。</span></p></li>
+<li><p>图的邻接矩阵表示法的空间复杂度为<span
+class="math inline">\(O(V+E)\)</span>，其中V是顶点数，E是边数。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+邻接矩阵空间复杂度为<span
+class="math inline">\(O(V²)\)</span>，邻接表才是<span
+class="math inline">\(O(V+E)\)</span>。</span></p></li>
+<li><p>AVL树是一种自平衡二叉搜索树，其任意节点的两个子树的高度差最多为2。（
+）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+AVL树平衡因子（左右子树高度差）最多为1，不是2。</span></p></li>
+<li><p>归并排序算法的时间复杂度为<span
+class="math inline">\(O(\)</span>nog n<span
+class="math inline">\()\)</span>。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+归并排序采用分治策略，无论最好最坏都是<span
+class="math inline">\(O(\)</span>nog n<span
+class="math inline">\()\)</span>，稳定排序。</span></p></li>
+<li><p>二分查找算法可以在无序数组中有效运行。（ ）</p>
+<p><strong>答案：×</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+二分查找要求数据必须有序，无序数组无法使用二分查找。</span></p></li>
+<li><p>在哈希表中，冲突可以通过链地址法解决。（ ）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+链地址法是解决哈希冲突的常用方法，将冲突元素链接成链表。</span></p></li>
+<li><p>二叉树的后序遍历顺序是先访问左子树，然后右子树，最后根节点。（
+）</p>
+<p><strong>答案：√</strong></p>
+<p><span style="color:red"><strong>解析：</strong>
+后序遍历顺序：左子树→右子树→根节点，先处理子节点再处理根。</span></p></li>
+</ol>
+<h2 id="四简答题">四、简答题</h2>
+<ol type="1">
+<li><p>简述线性表中”顺序表”和”单链表”的两个主要区别（从存储结构及基本操作特性角度回答）。</p>
+<p><span style="color:red"><strong>答案：</strong></p>
+<p>（1）<strong>存储结构</strong>：顺序表采用顺序存储，逻辑相邻的元素物理位置也相邻，占用连续存储空间；单链表采用链式存储，通过指针连接，可存储在不连续的空间。</p>
+<p>（2）<strong>操作特性</strong>：顺序表支持随机访问，查找第i个元素<span
+class="math inline">\(O(1)\)</span>，但插入删除需移动元素<span
+class="math inline">\(O(n)\)</span>；单链表只能顺序访问<span
+class="math inline">\(O(n)\)</span>，但插入删除只需修改指针<span
+class="math inline">\(O(1)\)</span>。</span></p></li>
+<li><p>栈、队列和字符串均属于线性结构，简述以下两个问题：</p>
+<p>（1）栈和队列的操作受限特点分别是什么？</p>
+<p>（2）字符串与普通线性表的区别是什么？</p>
+<p><span style="color:red"><strong>答案：</strong></p>
+<p>（1）栈是后进先出(LIFO)，只能在栈顶进行插入和删除；队列是先进先出(FIFO)，一端插入另一端删除。</p>
+<p>（2）字符串的数据元素仅限于字符；通常以整体作为操作对象，如子串查找、替换等；字符串操作更注重模式匹配而非单个元素操作。</span></p></li>
+<li><p>简述线性结构与非线性结构的不同点。</p>
+<p><span style="color:red"><strong>答案：</strong></p>
+<p><strong>线性结构</strong>：数据元素间存在一对一关系，每个元素（除首尾）有唯一前驱和后继，如数组、链表、栈、队列。</p>
+<p><strong>非线性结构</strong>：数据元素间存在一对多或多对多关系，如树（一对多）、图（多对多）。</span></p></li>
+<li><p>折半查找判定树是可视化折半查找执行过程的二叉树模型。请完成以下问题：</p>
+<p>（1）折半查找判定树是一类特殊的二叉排序树，试阐述其区别于普通二叉排序树的特性。</p>
+<p>（2）分析判定树高度与折半查找算法时间复杂度的内在关联。</p>
+<p><span style="color:red"><strong>答案：</strong></p>
+<p>（1）折半查找判定树是完全二叉树或近似完全二叉树，结构固定由有序序列决定；而普通二叉排序树结构依赖插入顺序，可能退化。</p>
+<p>（2）判定树高度h≈log₂(n+1)，查找最多比较h次，因此折半查找时间复杂度为<span
+class="math inline">\(O(log n)\)</span>。</span></p></li>
+<li><p>什么是递归算法？比较递归和非递归算法的优缺点？</p>
+<p><span style="color:red"><strong>答案：</strong></p>
+<p><strong>递归算法</strong>：在函数或过程中直接或间接调用自身来解决问题。</p>
+<p><strong>优缺点</strong>：</p>
+<ul>
+<li>递归：代码简洁清晰，易理解；但可能栈溢出，效率较低。</li>
+<li>非递归：效率高，无栈溢出风险；但代码复杂，不易理解。</span></li>
+</ul></li>
+<li><p>简述对称矩阵采用压缩存储的核心思路（以行优先存储下三角为例），并说明其相比普通二维数组存储的空间优势。</p>
+<p><span style="color:red"><strong>答案：</strong></p>
+<p><strong>核心思路</strong>：对称矩阵中aij=aji，只需存储下三角（或上三角）元素。按行优先将下三角元素依次存入一维数组。</p>
+<p><strong>空间优势</strong>：n×n矩阵从n²个元素压缩到n(n+1)/2个，节省约一半空间。</span></p></li>
+<li><p>简述图结构的遍历方法。</p>
+<p><span style="color:red"><strong>答案：</strong></p>
+<p>（1）<strong>深度优先搜索(DFS)</strong>：从起点出发，沿一条路径尽可能深入，无法继续时回溯，使用栈实现。</p>
+<p>（2）<strong>广度优先搜索(BFS)</strong>：从起点出发，按层次逐层访问，先访问所有邻接点，使用队列实现。</span></p></li>
+<li><p>简述稀疏矩阵的概念及其压缩存储方法。</p>
+<p><span style="color:red"><strong>答案：</strong></p>
+<p><strong>概念</strong>：非零元素个数远小于矩阵元素总数的矩阵。</p>
+<p><strong>压缩存储方法</strong>：</p>
+<ul>
+<li>三元组表：用(行，列，值)存储每个非零元素</li>
+<li>十字链表：用链表结构存储非零元素
+只存储非零元素，大幅节省空间。</span></li>
+</ul></li>
+</ol>
+<h2 id="五计算题">五、计算题</h2>
+<h3 id="森林转换为二叉树">1. 森林转换为二叉树</h3>
+<p>将图1中的森林转换成一棵二叉树，并对这棵二叉树进行先序、中序和后序遍历，写出其遍历序列。</p>
+<figure>
+<img src="./images/media/image1.png" alt="图1 森林" />
+<figcaption aria-hidden="true">图1 森林</figcaption>
+</figure>
+<p><span style="color:red"><strong>答案：</strong></p>
+<p><strong>转换步骤：</strong> 1. 树1: A-B,C,D →
+A左子B，B右兄C，C右兄D，C左子E 2. 树2: F-G,H → F左子G，G右兄H 3. 树3:
+I-J → I左子J<br />
+4. 树4: K独立 5. 各树根连成兄弟：A右子F，F右子I，I右子K</p>
+<p><strong>转换后的二叉树（文字表示）：</strong></p>
+<pre><code>
+        A
+       / \
+      B   F
+       \   / \
+        C G   I
+       /   \   / \
+      E     H J   K
+       \
+        D
+</code></pre>
+<p><strong>遍历序列：</strong> - <strong>先序遍历：</strong> A B C E D F
+G H I J K - <strong>中序遍历：</strong> B E D C A G H F J K I -
+<strong>后序遍历：</strong> E D C B H G J K I F A</span></p>
+<h3 id="二叉树遍历">2. 二叉树遍历</h3>
+<p>已知一棵二叉树的中序序列和后序序列分别为BCDEAFHG和DECBHGFA，画出这棵二叉树，要求给出转换过程，并写出其先序遍历的序列。</p>
+<p><span style="color:red"><strong>答案：</strong></p>
+<p><strong>构造过程：</strong> 1. 后序DECBHGFA，最后A是根 2.
+中序BCDEAFHG，A左边是BCDE（左子树），右边是FHG（右子树） 3.
+左子树后序DECB，根是B；中序BCDE，B左空，右边CDE 4.
+CDE中后序DEC，根是C；中序CDE，C左空，右边DE 5.
+DE中后序DE，根是E；中序DE，D是E的左子 6.
+右子树后序HGF，根是F；中序FHG，F左空，右边HG 7.
+HG中后序HG，根是G；中序HG，H是G的左子</p>
+<p><strong>二叉树结构：</strong></p>
+<pre><code>
+        A
+       / \
+      B   F
+       \   \
+        C   G
+         \  /
+          E H
+         /
+        D
+</code></pre>
+<p><strong>先序遍历序列：</strong> A B C E D F G H</span></p>
+<h3 id="图的邻接表和邻接矩阵">3. 图的邻接表和邻接矩阵</h3>
+<p>无向网G如图所示，画出G的邻接表和邻接矩阵。</p>
+<figure>
+<img src="./images/media/image2.png" alt="图2 无向网G" />
+<figcaption aria-hidden="true">图2 无向网G</figcaption>
+</figure>
+<p><span style="color:red"><strong>邻接矩阵：</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>20</td>
+<td>∞</td>
+<td>∞</td>
+<td>10</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>20</td>
+<td>0</td>
+<td>5</td>
+<td>7</td>
+<td>∞</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>∞</td>
+<td>5</td>
+<td>0</td>
+<td>6</td>
+<td>∞</td>
+<td>∞</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>∞</td>
+<td>7</td>
+<td>6</td>
+<td>0</td>
+<td>18</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>10</td>
+<td>∞</td>
+<td>∞</td>
+<td>18</td>
+<td>0</td>
+<td>12</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>9</td>
+<td>11</td>
+<td>∞</td>
+<td>14</td>
+<td>12</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>邻接表：</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>顶点</th>
+<th>邻接链表</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>→2(20) →5(10) →6(9)</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>→1(20) →3(5) →4(7) →6(11)</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>→2(5) →4(6)</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>→2(7) →3(6) →5(18) →6(14)</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>→1(10) →4(18) →6(12)</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>→1(9) →2(11) →4(14) →5(12)</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h3 id="简单选择排序">4. 简单选择排序</h3>
+<p>设待排序数据元素的关键字为80,7,79,57,35,26，请按照简单选择排序算法对这组数据元素进行升序排序，给出每趟排序结果。</p>
+<p><span style="color:red"><strong>答案：</strong> - 第1趟：7, 80, 79,
+57, 35, 26（选出最小7） - 第2趟：7, 26, 79, 57, 35, 80（选出26） -
+第3趟：7, 26, 35, 57, 79, 80（选出35） - 第4趟：7, 26, 35, 57, 79,
+80（选出57） - 第5趟：7, 26, 35, 57, 79, 80（选出79）</span></p>
+<h3 id="冒泡排序">5. 冒泡排序</h3>
+<p>设待排序数据元素的关键字为65,78,30,21,80,7，请按照冒泡排序算法对这组数据元素进行排序，给出每趟排序结果。</p>
+<p><span style="color:red"><strong>答案：</strong> - 第1趟：65, 30, 21,
+78, 7, 80（最大80沉底） - 第2趟：30, 21, 65, 7, 78, 80（78沉底） -
+第3趟：21, 30, 7, 65, 78, 80（65沉底） - 第4趟：21, 7, 30, 65, 78,
+80（30沉底） - 第5趟：7, 21, 30, 65, 78, 80（完成）</span></p>
+<h3 id="有向图的邻接矩阵">6. 有向图的邻接矩阵</h3>
+<p>有向图G如图3所示，请写出图G的邻接矩阵。</p>
+<figure>
+<img src="./images/media/image3.png" alt="图3 有向图G" />
+<figcaption aria-hidden="true">图3 有向图G</figcaption>
+</figure>
+<p><span style="color:red"><strong>答案：</strong></p>
+<p><strong>邻接矩阵（1表示有边，0表示无边）：</strong></p>
+<pre><code>
+    1  2  3  4  5  6
+1 [ 0  0  0  0  1  0 ]
+2 [ 1  0  0  1  0  0 ]
+3 [ 0  1  0  1  0  0 ]
+4 [ 0  0  0  0  1  1 ]
+5 [ 1  0  0  0  0  0 ]
+6 [ 0  0  0  0  1  0 ]
+</code></pre>
+<p><strong>说明：</strong> 根据图中箭头方向，边为：1→5, 2→1, 2→4, 3→2,
+3→4, 4→5, 4→6, 5→1, 6→5</span></p>
+<h3 id="二叉树遍历序列">7. 二叉树遍历序列</h3>
+<p>二叉树T如图4所示，写出先序、中序、后序遍历T的序列。</p>
+<figure>
+<img src="./images/media/image4.png" alt="图4 二叉树T" />
+<figcaption aria-hidden="true">图4 二叉树T</figcaption>
+</figure>
+<p><span style="color:red"><strong>答案：</strong></p>
+<p><strong>二叉树结构（根据图3）：</strong></p>
+<pre><code>
+        A
+       / \
+      B   C
+     /     \
+    D       E
+   /
+  F
+</code></pre>
+<p><strong>遍历序列：</strong> - <strong>先序遍历（根左右）：</strong> A
+B D F C E - <strong>中序遍历（左根右）：</strong> F D B A C E -
+<strong>后序遍历（左右根）：</strong> F D B E C A</span></p>
+<h3 id="构建二叉排序树">8. 构建二叉排序树</h3>
+<p>顺序给出以下关键字65、23、31、26、7、91、53、15、72、52、49、68，试画出建立的二叉排序树。</p>
+<p><span style="color:red"><strong>二叉排序树：</strong></p>
+<pre><code>
+            65
+           /  \
+          23   91
+         / \   /
+        7  31 72
+         \ / \ /
+        15 26 53 68
+              /
+             52
+            /
+           49
+</code></pre>
+<p><strong>规则：</strong> 左子树 &lt; 根 &lt;
+右子树，依次插入各节点即可。</span></p>
+<h3 id="kruskal算法构造最小生成树">9. Kruskal算法构造最小生成树</h3>
+<p>带权无向图G如图5所示，画出用克鲁斯卡尔(Kruskal)算法构造其最小生成树的每步结果（要求用图表示即可）。</p>
+<figure>
+<img src="./images/media/image5.png" alt="图5 带权无向图G" />
+<figcaption aria-hidden="true">图5 带权无向图G</figcaption>
+</figure>
+<p><span style="color:red"><strong>答案：</strong></p>
+<p><strong>边按权值排序：</strong> 1→v3: 1, v3→v5: 2, v5→v2: 3, v3→v6:
+4, v2→v3: 5(重), v2→v4: 5(重), v1→v3: 5(重), v5→v6: 6, v1→v2: 6(重)</p>
+<p><strong>Kruskal算法步骤（选5条边）：</strong></p>
+<p>步骤1: 选边v1-v3(权值1)，连接v1,v3</p>
+<pre><code>
+v1 --- v3    v2    v4    v5    v6
+</code></pre>
+<p>步骤2: 选边v3-v5(权值2)，连接v3,v5</p>
+<pre><code>
+v1 --- v3 --- v5    v2    v4    v6
+</code></pre>
+<p>步骤3: 选边v5-v2(权值3)，连接v5,v2</p>
+<pre><code>
+v1 --- v3 --- v5 --- v2    v4    v6
+</code></pre>
+<p>步骤4: 选边v3-v6(权值4)，连接v3,v6</p>
+<pre><code>
+       v6
+       |
+v1 --- v3 --- v5 --- v2    v4
+</code></pre>
+<p>步骤5: 选边v2-v4(权值5)或v3-v2(权值5)，v3-v2会成环，选v2-v4</p>
+<pre><code>
+       v6
+       |
+v1 --- v3 --- v5 --- v2 --- v4
+</code></pre>
+<p><strong>最小生成树权值和：</strong> 1+2+3+4+5 = 15</span></p>
+<h2 id="六综合应用题">六、综合应用题</h2>
+<h3 id="带表头结点的单链表插入算法">1. 带表头结点的单链表插入算法</h3>
+<p>已知带表头结点的单链表类型定义如下：</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> node <span class="op">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> element<span class="op">;</span>      <span class="co">// 数据域</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> node <span class="op">*</span>link<span class="op">;</span> <span class="co">// 指针域</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> Node<span class="op">;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> headerList <span class="op">{</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    Node <span class="op">*</span>head<span class="op">;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n<span class="op">;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> HeaderList<span class="op">;</span></span></code></pre></div>
+<p>假设现已实现带表头结点的单链表的初始化算法<code>int Init(HeaderList *h)</code>、销毁算法<code>void Destroy(HeaderList *h)</code>和输出算法<code>void DisplayLinkList(HeaderList *h)</code>。</p>
+<p>完成下列要求：</p>
+<ol type="1">
+<li>实现插入算法向单链表中插入3个整数（10、20、30）</li>
+<li>主函数中调用上述算法函数完成单链表创建到销毁的完整流程</li>
+</ol>
+<p><span style="color:red"><strong>解题思路：</strong></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 插入算法（尾插法）</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> Insert<span class="op">(</span>HeaderList <span class="op">*</span>h<span class="op">,</span> <span class="dt">int</span> value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    Node <span class="op">*</span>newNode <span class="op">=</span> <span class="op">(</span>Node<span class="op">*)</span>malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>Node<span class="op">));</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    newNode<span class="op">-&gt;</span>element <span class="op">=</span> value<span class="op">;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    newNode<span class="op">-&gt;</span>link <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    Node <span class="op">*</span>p <span class="op">=</span> h<span class="op">-&gt;</span>head<span class="op">;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">(</span>p<span class="op">-&gt;</span>link <span class="op">!=</span> NULL<span class="op">)</span> p <span class="op">=</span> p<span class="op">-&gt;</span>link<span class="op">;</span>  <span class="co">// 找到尾结点</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    p<span class="op">-&gt;</span>link <span class="op">=</span> newNode<span class="op">;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    h<span class="op">-&gt;</span>n<span class="op">++;</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>span<span class="op">&gt;</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">// 主函数</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    HeaderList h<span class="op">;</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    Init<span class="op">(&amp;</span>h<span class="op">);</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    Insert<span class="op">(&amp;</span>h<span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    Insert<span class="op">(&amp;</span>h<span class="op">,</span> <span class="dv">20</span><span class="op">);</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    Insert<span class="op">(&amp;</span>h<span class="op">,</span> <span class="dv">30</span><span class="op">);</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    DisplayLinkList<span class="op">(&amp;</span>h<span class="op">);</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    Destroy<span class="op">(&amp;</span>h<span class="op">);</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>关键点：</strong>
+头结点不存数据，插入需遍历找尾结点；头插法更简单但顺序相反。}</p>
+<h3 id="顺序表的插入算法">2. 顺序表的插入算法</h3>
+<p>已知顺序表定义如下：</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> seqList <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n<span class="op">;</span>           <span class="co">// 顺序表长度</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> maxLength<span class="op">;</span>   <span class="co">// 顺序表的最大允许长度</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="op">*</span>element<span class="op">;</span>    <span class="co">// 顺序表的存储空间的首地址</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> SeqList<span class="op">;</span></span></code></pre></div>
+<p>假设现已实现顺序表的初始化算法<code>int Init(SeqList *L, int mSize)</code>，其中mSize表示预先分配的空间数量、销毁算法<code>void Destroy(SeqList *L)</code>和输出算法<code>void DisplaySeqList(SeqList *L)</code>。</p>
+<p>完成下列要求：</p>
+<ol type="1">
+<li>实现插入算法向顺序表中插入3个整数（10、20、30）</li>
+<li>主函数中调用上述算法完成顺序表创建到销毁的完整流程</li>
+</ol>
+<p><span style="color:red"><strong>解题思路：</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 插入算法（尾插）</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> Insert<span class="op">(</span>SeqList <span class="op">*</span>L<span class="op">,</span> <span class="dt">int</span> value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>L<span class="op">-&gt;</span>n <span class="op">&gt;=</span> L<span class="op">-&gt;</span>maxLength<span class="op">)</span> <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// 表满</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    L<span class="op">-&gt;</span>element<span class="op">[</span>L<span class="op">-&gt;</span>n<span class="op">]</span> <span class="op">=</span> value<span class="op">;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    L<span class="op">-&gt;</span>n<span class="op">++;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>span<span class="op">&gt;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">// 主函数</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    SeqList L<span class="op">;</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    Init<span class="op">(&amp;</span>L<span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    Insert<span class="op">(&amp;</span>L<span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    Insert<span class="op">(&amp;</span>L<span class="op">,</span> <span class="dv">20</span><span class="op">);</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    Insert<span class="op">(&amp;</span>L<span class="op">,</span> <span class="dv">30</span><span class="op">);</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    DisplaySeqList<span class="op">(&amp;</span>L<span class="op">);</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    Destroy<span class="op">(&amp;</span>L<span class="op">);</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>关键点：</strong>
+n表示当前长度，element[n]即为下一个空位；插入指定位置需后移元素。}</p>
+<h3 id="顺序栈的入栈算法">3. 顺序栈的入栈算法</h3>
+<p>已知顺序栈定义如下：</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> stack <span class="op">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> top<span class="op">;</span>        <span class="co">// 顺序栈顶位置下标</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> maxSize<span class="op">;</span>    <span class="co">// 顺序栈的最大允许长度</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="op">*</span>element<span class="op">;</span>   <span class="co">// 顺序栈的存储空间的首地址</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> Stack<span class="op">;</span></span></code></pre></div>
+<p>假设现已实现顺序栈的初始化算法<code>int InitStack(Stack *S, int mSize)</code>，其中mSize表示预先分配的空间数量、销毁算法<code>void DestroyStack(Stack *S)</code>和输出算法<code>void DisplayStack(Stack *S)</code>。</p>
+<p>完成下列要求：</p>
+<ol type="1">
+<li>实现入栈算法向顺序栈中入栈3个整数（10、20、30）</li>
+<li>主函数中调用上述算法完成顺序栈创建到销毁的完整流程</li>
+</ol>
+<p><span style="color:red"><strong>解题思路：</strong></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 入栈算法</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> Push<span class="op">(</span>Stack <span class="op">*</span>S<span class="op">,</span> <span class="dt">int</span> value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>S<span class="op">-&gt;</span>top <span class="op">&gt;=</span> S<span class="op">-&gt;</span>maxSize <span class="op">-</span> <span class="dv">1</span><span class="op">)</span> <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// 栈满</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    S<span class="op">-&gt;</span>top<span class="op">++;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    S<span class="op">-&gt;</span>element<span class="op">[</span>S<span class="op">-&gt;</span>top<span class="op">]</span> <span class="op">=</span> value<span class="op">;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>span<span class="op">&gt;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">// 主函数</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    Stack S<span class="op">;</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    InitStack<span class="op">(&amp;</span>S<span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    Push<span class="op">(&amp;</span>S<span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    Push<span class="op">(&amp;</span>S<span class="op">,</span> <span class="dv">20</span><span class="op">);</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    Push<span class="op">(&amp;</span>S<span class="op">,</span> <span class="dv">30</span><span class="op">);</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    DisplayStack<span class="op">(&amp;</span>S<span class="op">);</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    DestroyStack<span class="op">(&amp;</span>S<span class="op">);</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>关键点：</strong>
+top初始化为-1，入栈先top++再赋值；出栈先取值再top–；判断栈空：top==-1；判断栈满：top==maxSize-1。</p>
+</main>
+</body>
+</html>

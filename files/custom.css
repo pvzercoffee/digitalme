@@ -1,0 +1,9 @@
+span[style*="color:red"], span[style*="color: red"] {
+    color: #dc143c;
+    font-weight: bold;
+}
+code {
+    background-color: #f5f5f5;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
