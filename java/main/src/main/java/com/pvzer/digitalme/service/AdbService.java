@@ -41,6 +41,24 @@ public class AdbService implements AutoCloseable {
         return exec("input tap "+x+" "+y);
     }
 
+    public  String getWmSize() throws IOException {
+        Process p = Runtime.getRuntime().exec("adb shell wm size");
+
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(p.getInputStream()))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // 返回第一行有效输出
+                if (!line.trim().isEmpty()) {
+                    return line;
+                }
+            }
+        }
+
+        return null; // 没有输出
+    }
+
     public AdbService shell(String cmd) throws IOException {
         return exec(cmd);
     }

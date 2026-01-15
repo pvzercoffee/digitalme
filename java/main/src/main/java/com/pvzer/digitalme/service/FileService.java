@@ -4,6 +4,7 @@ import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -44,6 +45,39 @@ public class FileService {
 
         // 4. 返回 Base64
         return "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(baos.toByteArray());
+    }
+
+    public static String balanceCompressToBase64(BufferedImage source) throws Exception {
+        // 保持原分辨率，确保按钮坐标准确
+        int width = source.getWidth();
+        int height = source.getHeight();
+
+        // 转为灰度（减少2/3数据量）
+        BufferedImage grayImage = new BufferedImage(
+                width, height, BufferedImage.TYPE_BYTE_GRAY);
+        Graphics2D g2d = grayImage.createGraphics();
+        g2d.drawImage(source, 0, 0, null);
+        g2d.dispose();
+
+        // JPEG压缩，质量0.5（最佳平衡点）
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageWriter writer = ImageIO.getImageWritersByFormatName("jpeg").next();
+
+        try (ImageOutputStream ios = ImageIO.createImageOutputStream(baos)) {
+            writer.setOutput(ios);
+            ImageWriteParam param = writer.getDefaultWriteParam();
+
+            if (param.canWriteCompressed()) {
+                param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+                param.setCompressionQuality(0.5f); // 关键设置！
+            }
+
+            writer.write(null, new IIOImage(grayImage, null, null), param);
+        }
+
+        byte[] compressed = baos.toByteArray();
+
+        return "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(compressed);
     }
 
     /**
